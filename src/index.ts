@@ -1,7 +1,7 @@
-//require the necessaty classes
+//require the necessary classes
 const fs = require('fs');
 const {Client, Collection, Intents, Interaction} = require('discord.js');
-const {token} = require('./config.json');
+const {token} = require('./tsconfig.json');
 const { CLIENT_RENEG_WINDOW } = require('tls');
 //create new client
 const client = new Client({intents: [Intents.FLAGS.GUILDS]});
@@ -9,16 +9,16 @@ const client = new Client({intents: [Intents.FLAGS.GUILDS]});
 client.once('ready', () =>{
     console.log('Ready!');
 });
-
+//load commands
 client.commands = new Collection();
-const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
+const commandFiles = fs.readdirSync('./commands').filter((file: string) => file.endsWith('.ts'));
 
 for (const file of commandFiles){
     const command = require(`./commands/${file}`);
     client.commands.set(command.data.name, command);
 }
 
-client.on('interactionCreate', async interaction => {
+client.on('interactionCreate', async (interaction: { isCommand: () => any; commandName: any; reply: (arg0: { content: string; ephemeral: boolean; }) => any; }) => {
     if(!interaction.isCommand()) return;
     
     const command = client.commands.get(interaction.commandName);
