@@ -2,7 +2,7 @@
   "name": "notbot",
   "version": "1.0.0",
   "description": "discord bot for twitch and youtube notifications",
-  "main": "stc/index.ts",
+  "main": "src/index.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node src/index.ts"
