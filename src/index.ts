@@ -1,8 +1,6 @@
-//require the necessary classes
-const fs = require('fs');
-const {Client, Collection, Intents, Interaction} = require('discord.js');
-const {token} = require('./tsconfig.json');
-const { CLIENT_RENEG_WINDOW } = require('tls');
+import { Client, Collection, Intents, Interaction } from "discord.js";
+import * as fs from 'fs';
+
 //create new client
 const client = new Client({intents: [Intents.FLAGS.GUILDS]});
 //notify bot ready
@@ -18,7 +16,7 @@ for (const file of commandFiles){
     client.commands.set(command.data.name, command);
 }
 
-client.on('interactionCreate', async (interaction: { isCommand: () => any; commandName: any; reply: (arg0: { content: string; ephemeral: boolean; }) => any; }) => {
+client.on('interactionCreate', async (interaction: Interaction) => {
     if(!interaction.isCommand()) return;
     
     const command = client.commands.get(interaction.commandName);
