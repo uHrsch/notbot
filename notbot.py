@@ -1,3 +1,4 @@
+import discord
 from discord.ext import commands
 from discord.ext.tasks import loop
 from twitch import *
