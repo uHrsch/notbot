@@ -1,8 +1,7 @@
-FROM python:latest
+FROM python:3.7-stretch
 
 COPY ./ /notbot/
-RUN pip3 install discord
-RUN pip3 install requests
+RUN pip3 install -r ./notbot/requirements.txt
 
 
-CMD ["python","./notbot/notbot.py"]
+CMD ["python3","./notbot/notbot.py"]
