@@ -1,13 +1,12 @@
-#notbot.py
-import os
-
-import discord
-from dotenv import load_dotenv
-
 from discord.ext import commands
+from discord.ext.tasks import loop
+from twitch import *
 
-load_dotenv()
-TOKEN = os.getenv('DISCORD_TOKEN')
+with open("./config.json") as config_file:
+    config = json.load(config_file)
+
+discord_token = config["discord_token"]
+
 bot = commands.Bot(command_prefix='/')
 
 @bot.event
@@ -25,4 +24,19 @@ async def on_member_join(member):
 async def ping(ctx):
     await ctx.send('pong')
 
-bot.run(TOKEN)
+
+@loop(seconds=90)
+async def check_twitch_online_streamers():
+    channel = bot.get_channel(901486647366025249)
+    if not channel:
+        return
+    
+    notifications = get_notifications
+
+    for notification in notifications:
+        await channel.send("streamer {} ist jetzt online: {}".format(notification["user_login"], notification))
+
+
+
+check_twitch_online_streamers.start()
+bot.run(discord_token)
