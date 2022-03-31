@@ -32,7 +32,7 @@ async def check_twitch_online_streamers():
     if not channel:
         return
     
-    notifications = get_notifications
+    notifications = get_notifications()
 
     for notification in notifications:
         await channel.send("streamer {} ist jetzt online: {}".format(notification["user_login"], notification))
