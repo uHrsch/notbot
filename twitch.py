@@ -3,7 +3,7 @@ import json
 import pip._vendor.requests as requests
 
 
-with open("./config.json") as config_file:
+with open("home/pi/notbot/config.json") as config_file:
     config = json.load(config_file)
 
 

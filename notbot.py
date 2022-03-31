@@ -3,7 +3,7 @@ from discord.ext import commands
 from discord.ext.tasks import loop
 from twitch import *
 
-with open("./config.json") as config_file:
+with open("home/pi/notbot/config.json") as config_file:
     config = json.load(config_file)
 
 discord_token = config["discord_token"]
