@@ -67,6 +67,3 @@ def get_notifications():
                 online_users[user_name] = started_at
 
     return notifications
-
-
-get_notifications()
