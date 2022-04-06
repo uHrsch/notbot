@@ -61,9 +61,12 @@ def get_notifications():
         if user_name not in streams:
             online_users[user_name] = None
         else:
-            started_at = datetime.strptime(streams[user_name][started_at], "%Y-%m-%dT%H:%M:%SZ")
+            started_at = datetime.strptime(streams[user_name]["started_at"], "%Y-%m-%dT%H:%M:%SZ")
             if online_users[user_name] is None or started_at > online_users[user_name]:
                 notifications.append(streams[user_name])
                 online_users[user_name] = started_at
 
     return notifications
+
+
+get_notifications()
