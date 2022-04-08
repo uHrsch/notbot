@@ -1,6 +1,5 @@
 from datetime import datetime
 import json
-from turtle import st
 import pip._vendor.requests as requests
 
 
