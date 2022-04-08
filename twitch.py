@@ -1,5 +1,6 @@
 from datetime import datetime
 import json
+from turtle import st
 import pip._vendor.requests as requests
 
 
@@ -56,9 +57,12 @@ def get_notifications():
 
     notifications = []
     for user_name in users:
+        time_now = datetime.utcnow() - datetime.timedelta(seconds=90)
         if user_name in streams and user_name not in online_users:
-            online_users.append(user_name)
             notifications.append(streams[user_name])
+            started_at = datetime.strptime(streams[user_name]["started_at"], "%Y-%m-%dT%H:%M:%SZ")
+            if started_at > time_now:
+                notifications.append(streams[user_name])
         if user_name not in streams and user_name in online_users:
             online_users.remove(user_name)
     
