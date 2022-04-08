@@ -56,8 +56,8 @@ def get_notifications():
     streams = get_streams(users)
 
     notifications = []
+    time_now = datetime.utcnow() - datetime.timedelta(seconds=90)
     for user_name in users:
-        time_now = datetime.utcnow() - datetime.timedelta(seconds=90)
         if user_name in streams and user_name not in online_users:
             online_users.append(user_name)
             started_at = datetime.strptime(streams[user_name]["started_at"], "%Y-%m-%dT%H:%M:%SZ")
