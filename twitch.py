@@ -48,22 +48,18 @@ def get_streams(users):
     return {entry["user_login"]: entry for entry in response.json()["data"]}
 
 
-online_users = {}
+online_users = []
 
 def get_notifications():
     users = get_users(config["watchList"])
     streams = get_streams(users)
 
     notifications = []
-    for user_name in config["watchList"]:
-        if user_name not in online_users:
-            online_users[user_name]  = datetime.utcnow()
-        if user_name not in streams:
-            online_users[user_name] = None
-        else:
-            started_at = datetime.strptime(streams[user_name]["started_at"], "%Y-%m-%dT%H:%M:%SZ")
-            if online_users[user_name] is None or started_at > online_users[user_name]:
-                notifications.append(streams[user_name])
-                online_users[user_name] = started_at
-
+    for user_name in users:
+        if user_name in streams and user_name not in online_users:
+            online_users.append(user_name)
+            notifications.append(streams[user_name])
+        if user_name not in streams and user_name in online_users:
+            online_users.remove(user_name)
+    
     return notifications
