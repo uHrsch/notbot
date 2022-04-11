@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 import json
 import pip._vendor.requests as requests
 
@@ -55,7 +55,7 @@ def get_notifications():
     streams = get_streams(users)
 
     notifications = []
-    time_now = datetime.utcnow() - datetime.timedelta(seconds=90)
+    time_now = datetime.utcnow() - timedelta(seconds=90)
     for user_name in users:
         if user_name in streams and user_name not in online_users:
             online_users.append(user_name)
